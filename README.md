@@ -22,11 +22,13 @@ React + TypeScript (Vite) · Python + FastAPI · SAM 3.1 · Muse Spark · OpenCV
 ## Quick start
 ```bash
 cd backend
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
 .venv/bin/uvicorn app.main:app --reload
 
 cd ../frontend
-npm install && npm run dev
+npm install 
+npm run dev
 ```
 Open http://localhost:5173 and click **Load demo parcel line**.
 
