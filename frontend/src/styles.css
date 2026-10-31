@@ -1,0 +1,23 @@
+body { font-family: system-ui, sans-serif; margin: 0; background: #f6f7f9; color: #1d2330; }
+main { max-width: 1000px; margin: 0 auto; padding: 24px; }
+h1 { margin-bottom: 0; }
+.subtitle { color: #5b6475; margin-top: 4px; }
+section { background: white; border-radius: 8px; padding: 16px 20px; margin: 16px 0; box-shadow: 0 1px 3px #0001; }
+h2 small, h3 small { font-weight: normal; color: #5b6475; font-size: 0.75em; }
+button { padding: 6px 14px; border: 1px solid #2d5bd7; background: #2d5bd7; color: white; border-radius: 6px; cursor: pointer; margin: 8px 0; }
+button:disabled { opacity: 0.5; cursor: default; }
+td button { background: transparent; color: #a33; border-color: transparent; margin: 0; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 14px; }
+th, td { text-align: left; padding: 4px 6px; border-bottom: 1px solid #e4e7ec; }
+td input[type="number"] { width: 64px; }
+.frame { width: 100%; background: #20242c; border-radius: 6px; }
+.track { fill: none; stroke: #6ec1ff55; stroke-width: 2; }
+.zone { fill: #ffb02033; stroke: #ffb020; stroke-width: 2; }
+.zone-label { fill: #ffb020; font-size: 14px; }
+.bar-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.bar-label { width: 160px; }
+.bar { flex: 1; background: #e4e7ec; height: 14px; border-radius: 4px; }
+.bar div { background: #2d5bd7; height: 100%; border-radius: 4px; }
+tr.bottleneck td { background: #fff4e0; }
+.explanation { background: #f0f4ff; padding: 12px; border-radius: 6px; line-height: 1.5; }
+.error { color: #a33; background: #fdecec; padding: 8px 12px; border-radius: 6px; }
