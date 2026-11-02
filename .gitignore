@@ -7,3 +7,4 @@ backend/uploads/
 .env
 sample_data/videos/*
 !sample_data/videos/.gitkeep
+CLAUDE.md
