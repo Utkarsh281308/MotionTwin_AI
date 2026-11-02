@@ -2,141 +2,148 @@
  {
   "track_id": 0,
   "a_service": 2.3238327648331625,
-  "b_service": 3.3508491739245025,
+  "b_service": 3.350849173924502,
   "arrival": 1.0,
   "completed": true
  },
  {
   "track_id": 1,
-  "a_service": 2.150920905791109,
-  "b_service": 3.37621772849037,
-  "arrival": 4.457731203963991,
+  "a_service": 2.0724362866675428,
+  "b_service": 3.7358820043066894,
+  "arrival": 4.150934473039854,
   "completed": true
  },
  {
   "track_id": 2,
-  "a_service": 2.7996437448496607,
-  "b_service": 3.284778486450379,
-  "arrival": 7.610709246805,
+  "a_service": 2.057998924774707,
+  "b_service": 3.7074357331894205,
+  "arrival": 7.016623389952439,
   "completed": true
  },
  {
   "track_id": 3,
-  "a_service": 2.66025651519137,
-  "b_service": 3.342978997924237,
-  "arrival": 10.826829129593197,
+  "a_service": 2.4336456836623857,
+  "b_service": 3.269855423574619,
+  "arrival": 9.554119048394424,
   "completed": true
  },
  {
   "track_id": 4,
-  "a_service": 2.2819332823066274,
-  "b_service": 3.4422129339924856,
-  "arrival": 13.997372427501876,
+  "a_service": 2.424519189142514,
+  "b_service": 4.026852124672038,
+  "arrival": 12.14483206173829,
   "completed": true
  },
  {
   "track_id": 5,
-  "a_service": 2.8198976926998673,
-  "b_service": 4.1681082516506995,
-  "arrival": 16.956343250465473,
+  "a_service": 2.2232389646070145,
+  "b_service": 3.8274332224055896,
+  "arrival": 14.768634022887936,
   "completed": true
  },
  {
   "track_id": 6,
-  "a_service": 2.000178687819374,
-  "b_service": 3.5915210957097896,
-  "arrival": 20.043519740964733,
+  "a_service": 2.577102948617499,
+  "b_service": 3.59668047465078,
+  "arrival": 18.216342965344943,
   "completed": true
  },
  {
   "track_id": 7,
-  "a_service": 2.6169784817366724,
-  "b_service": 3.462172473568006,
-  "arrival": 23.501209346273523,
+  "a_service": 2.0465826806177563,
+  "b_service": 4.0584684590486795,
+  "arrival": 21.692598070937862,
   "completed": true
  },
  {
   "track_id": 8,
-  "a_service": 2.9016305815917773,
-  "b_service": 3.6237548046822807,
-  "arrival": 26.007085942800057,
+  "a_service": 2.1442550833574376,
+  "b_service": 3.3177922380783684,
+  "arrival": 24.482207357269537,
   "completed": true
  },
  {
   "track_id": 9,
-  "a_service": 2.8198242971011025,
-  "b_service": 3.4536525004362515,
-  "arrival": 28.555377397237308,
+  "a_service": 2.816126359120031,
+  "b_service": 3.3807263799239378,
+  "arrival": 27.290689181371473,
   "completed": true
  },
  {
   "track_id": 10,
-  "a_service": 2.423765385606589,
-  "b_service": 3.220918461314599,
-  "arrival": 31.37451627683834,
+  "a_service": 2.638913468926184,
+  "b_service": 3.5723975427257315,
+  "arrival": 30.372289345033938,
   "completed": true
  },
  {
   "track_id": 11,
-  "a_service": 2.828985321297604,
-  "b_service": 3.7216882701430647,
-  "arrival": 34.51377756572386,
+  "a_service": 2.0627889749733233,
+  "b_service": 3.259601169966233,
+  "arrival": 33.4200338107435,
   "completed": true
  },
  {
   "track_id": 12,
-  "a_service": 2.9098221849177035,
-  "b_service": 3.81174010020528,
-  "arrival": 37.80280455253773,
-  "completed": true
+  "a_service": 2.680399973181786,
+  "b_service": 3.627592305669403,
+  "arrival": 36.12599252356282,
+  "completed": false
  },
  {
   "track_id": 13,
-  "a_service": 2.0205701075053595,
-  "b_service": 3.2335790753710567,
-  "arrival": 40.82226136831051,
-  "completed": true
+  "a_service": 2.585561863507639,
+  "b_service": 3.6531843763707754,
+  "arrival": 38.940139693939614,
+  "completed": false
  },
  {
   "track_id": 14,
-  "a_service": 2.711186437816113,
-  "b_service": 3.5813891230248798,
-  "arrival": 43.643240149735895,
+  "a_service": 2.7943794815224914,
+  "b_service": 3.8989944337295714,
+  "arrival": 41.739906690803295,
   "completed": false
  },
  {
   "track_id": 15,
-  "a_service": 2.607333728008167,
-  "b_service": 3.5795623246705928,
-  "arrival": 47.01600142625966,
+  "a_service": 2.574423710258671,
+  "b_service": 3.7251965038114516,
+  "arrival": 44.48400320152545,
   "completed": false
  },
  {
   "track_id": 16,
-  "a_service": 2.949711330738114,
-  "b_service": 3.4429278543389072,
-  "arrival": 50.01155329538042,
+  "a_service": 2.7294452894392176,
+  "b_service": 3.487937764890187,
+  "arrival": 47.85914069709887,
   "completed": false
  },
  {
   "track_id": 17,
-  "a_service": 2.3030760746910373,
-  "b_service": 3.5807419966036376,
-  "arrival": 52.709640985830376,
+  "a_service": 2.1180657782549623,
+  "b_service": 3.6181228217852275,
+  "arrival": 51.33931554459146,
   "completed": false
  },
  {
   "track_id": 18,
-  "a_service": 2.114478250519414,
-  "b_service": 3.489340138527541,
-  "arrival": 56.040811948628416,
+  "a_service": 2.151984534660505,
+  "b_service": 3.6889631004758057,
+  "arrival": 54.59645647415671,
   "completed": false
  },
  {
   "track_id": 19,
-  "a_service": 2.551134205756436,
-  "b_service": 3.5692760231928586,
-  "arrival": 58.90933767822759,
+  "a_service": 2.6682158565343954,
+  "b_service": 3.964570866212813,
+  "arrival": 57.13566373120415,
+  "completed": false
+ },
+ {
+  "track_id": 20,
+  "a_service": 2.8754778118308884,
+  "b_service": 3.513747512848097,
+  "arrival": 60.20868967148153,
   "completed": false
  }
 ]

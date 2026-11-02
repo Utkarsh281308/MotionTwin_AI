@@ -22,3 +22,13 @@ def test_censored_when_track_starts_inside():
     track = Track(track_id=1, points=[TrackPoint(frame=f, x=5 + f, y=5) for f in range(10)])
     [e] = extract_zone_events([track], [Zone(id="z", name="Z", polygon=SQUARE)], fps=10)
     assert e.censored
+
+
+def test_parse_sam_output_box_centres():
+    from app.vision.meta_sam import parse_sam_output
+    mask = "<|mask;x=0;y=0;data=27,60,~!!!!M!0c[0o91w?q1!pIH4pPRVp2B3'7`e.ioeAf6-k/#Xd8%dX9x(|>"
+    text = (f"<0f>0<|box;x1=10;y1=20;x2=29;y2=39;w=320;h=334|>{mask}\n"
+            f"<1f>0<|box;x1=20;y1=20;x2=39;y2=39;w=320;h=334|>{mask}\n")
+    [track] = parse_sam_output(text)
+    assert [p.frame for p in track.points] == [0, 1]
+    assert (track.points[0].x, track.points[0].y) == (20, 30)

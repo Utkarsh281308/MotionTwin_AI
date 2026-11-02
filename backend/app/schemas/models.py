@@ -1,4 +1,6 @@
 """Shared data models for the whole pipeline: video -> tracks -> zone events -> process model -> simulation."""
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -50,8 +52,16 @@ class StationModel(BaseModel):
 class ProcessModel(BaseModel):
     stations: list[StationModel]  # in flow order
     interarrival_times: list[float]
+    # travel time between consecutive stations (exit of station i -> entry of station i+1); len = stations - 1
+    transfer_times: list[list[float]] = []
     observed_duration: float  # seconds of video
     observed_completed: int  # objects that finished the last station
+
+
+class Notice(BaseModel):
+    """A data-quality or modelling caveat shown to the user (and passed to Muse)."""
+    level: Literal["info", "warning", "error"]
+    message: str
 
 
 class StationChange(BaseModel):
@@ -68,6 +78,7 @@ class Scenario(BaseModel):
 
 class SimulationRequest(BaseModel):
     model: ProcessModel
+    notices: list[Notice] = []  # data-quality notices from model building, passed through to the explanation
     scenario: Scenario | None = None
     sim_time: float = Field(default=3600, gt=0)
     replications: int = Field(default=30, ge=2, le=500)
@@ -91,14 +102,49 @@ class StationResult(BaseModel):
 
 class SimResult(BaseModel):
     name: str
+    completed: Estimate  # objects that finished the last station during sim_time
     throughput_per_hour: Estimate
     avg_cycle_time: Estimate
     stations: list[StationResult]
 
 
+class StationStats(BaseModel):
+    zone_id: str
+    name: str
+    visits: int  # all stays in the zone
+    complete_visits: int  # uncensored stays (used for timings)
+    mean_time: float | None
+    stopped_share: float | None  # share of complete visits where the object came to rest
+
+
+class ModelSummary(BaseModel):
+    clip_seconds: float
+    tracked_ids: int  # tracker ids (one object can get several ids)
+    objects_entered: int  # distinct ids seen in the first zone
+    objects_completed: int  # distinct ids with a complete visit to the last zone
+
+
+class Calibration(BaseModel):
+    """Does the model reproduce the video? Simulate the same window, starting empty."""
+    window_seconds: float
+    observed_completed: int
+    simulated_completed: Estimate
+    error_pct: float  # (simulated - observed) / observed
+
+
+class Bottleneck(BaseModel):
+    zone_id: str | None  # None = no station is constrained
+    busiest_zone_id: str
+    reason: str
+
+
 class Comparison(BaseModel):
     observed_throughput_per_hour: float
+    calibration: Calibration
     baseline: SimResult
     scenario: SimResult | None = None
-    bottleneck_zone_id: str
+    scenario_changes: list[str] = []
+    bottleneck: Bottleneck
+    scenario_bottleneck: Bottleneck | None = None
+    notices: list[Notice] = []
     explanation: str

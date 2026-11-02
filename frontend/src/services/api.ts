@@ -1,4 +1,4 @@
-import type { Comparison, ProcessModel, Scenario, Session, Zone, ZoneEvent } from "../types";
+import type { Comparison, ModelResponse, Notice, Preview, ProcessModel, Scenario, Session, Zone } from "../types";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, {
@@ -12,6 +12,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json();
 }
 
+const q = encodeURIComponent;
+
 export const api = {
   loadDemo: () => request<Session>("/demo/load", { method: "POST" }),
   uploadVideo: (file: File) => {
@@ -19,12 +21,14 @@ export const api = {
     form.append("file", file);
     return request<Session>("/videos", { method: "POST", body: form });
   },
+  videoUrl: (id: string) => `/api/sessions/${id}/video`,
+  preview: (id: string, prompt: string, frame: number) =>
+    request<Preview>(`/sessions/${id}/preview?prompt=${q(prompt)}&frame=${frame}`, { method: "POST" }),
   track: (id: string, prompt: string) =>
-    request<Session>(`/sessions/${id}/track?prompt=${encodeURIComponent(prompt)}`, { method: "POST" }),
+    request<Session>(`/sessions/${id}/track?prompt=${q(prompt)}`, { method: "POST" }),
   setZones: (id: string, zones: Zone[]) =>
     request<Session>(`/sessions/${id}/zones`, { method: "PUT", body: JSON.stringify(zones) }),
-  buildModel: (id: string) =>
-    request<{ events: ZoneEvent[]; model: ProcessModel }>(`/sessions/${id}/model`, { method: "POST" }),
-  simulate: (model: ProcessModel, scenario: Scenario | null) =>
-    request<Comparison>("/simulate", { method: "POST", body: JSON.stringify({ model, scenario }) }),
+  buildModel: (id: string) => request<ModelResponse>(`/sessions/${id}/model`, { method: "POST" }),
+  simulate: (model: ProcessModel, scenario: Scenario | null, notices: Notice[]) =>
+    request<Comparison>("/simulate", { method: "POST", body: JSON.stringify({ model, scenario, notices }) }),
 };

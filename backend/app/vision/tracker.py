@@ -30,26 +30,57 @@ def masks_to_tracks(frames: dict[int, dict[int, np.ndarray]], label: str = "obje
 def greedy_track(
     detections: dict[int, list[tuple[float, float]]], max_dist: float = 50.0, max_gap: int = 5
 ) -> list[Track]:
-    """Link per-frame centroids to the nearest live track (simple nearest-neighbour tracker)."""
+    """Link per-frame centroids into tracks (nearest-neighbour tracker).
+
+    Each frame, all (track, detection) pairs are matched shortest-distance first, so a box
+    stepping forward can't steal the id of the box right behind it.
+    """
     tracks: list[Track] = []
     live: list[Track] = []
     for frame_idx in sorted(detections):
         live = [t for t in live if frame_idx - t.points[-1].frame <= max_gap]
-        taken: set[int] = set()
-        for x, y in detections[frame_idx]:
-            best, best_d = None, max_dist
-            for i, t in enumerate(live):
-                if i in taken:
-                    continue
-                last = t.points[-1]
-                d = float(np.hypot(last.x - x, last.y - y))
-                if d < best_d:
-                    best, best_d = i, d
-            if best is None:
-                t = Track(track_id=len(tracks), points=[])
+        dets = detections[frame_idx]
+        pairs = sorted(
+            (float(np.hypot(t.points[-1].x - x, t.points[-1].y - y)), ti, di)
+            for ti, t in enumerate(live)
+            for di, (x, y) in enumerate(dets)
+        )
+        used_t, used_d = set(), set()
+        for d, ti, di in pairs:
+            if d > max_dist:
+                break
+            if ti in used_t or di in used_d:
+                continue
+            used_t.add(ti)
+            used_d.add(di)
+            live[ti].points.append(TrackPoint(frame=frame_idx, x=dets[di][0], y=dets[di][1]))
+        for di, (x, y) in enumerate(dets):
+            if di not in used_d:
+                t = Track(track_id=len(tracks), points=[TrackPoint(frame=frame_idx, x=x, y=y)])
                 tracks.append(t)
                 live.append(t)
-                best = len(live) - 1
-            taken.add(best)
-            live[best].points.append(TrackPoint(frame=frame_idx, x=x, y=y))
     return tracks
+
+
+def split_at_jumps(tracks: list[Track], max_step: float = 60.0) -> list[Track]:
+    """Cut a track wherever it jumps further than `max_step` px per frame.
+
+    SAM can re-use an id for a different object (e.g. after one leaves the frame,
+    or beyond its 16-object limit); the jump marks where one object ends and another begins.
+    """
+    out: list[Track] = []
+    next_id = 0
+    for t in tracks:
+        pts = sorted(t.points, key=lambda p: p.frame)
+        segment = pts[:1]
+        for a, b in zip(pts, pts[1:]):
+            gap = max(1, b.frame - a.frame)
+            if np.hypot(b.x - a.x, b.y - a.y) > max_step * gap:
+                out.append(Track(track_id=next_id, label=t.label, points=segment))
+                next_id += 1
+                segment = []
+            segment.append(b)
+        if segment:
+            out.append(Track(track_id=next_id, label=t.label, points=segment))
+            next_id += 1
+    return out
